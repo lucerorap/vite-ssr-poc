@@ -2,8 +2,8 @@
   "name": "poc-vite",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "dev": "vite-ssr",
+    "build": "vue-tsc --noEmit && vite-ssr build",
     "serve": "vite preview"
   },
   "dependencies": {
