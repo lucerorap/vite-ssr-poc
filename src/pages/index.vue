@@ -1,7 +1,11 @@
 
 
 <script lang="ts" setup>
-import { RouterLink } from "vue-router";
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: "Home",
+});
 </script>
 <template>
   <!-- <div class="navbar">

@@ -8,6 +8,10 @@ name: "Hello"
     const route = useRoute();
     console.log('route', route.name);
     // you can also use $route.name
+
+    useHead({
+        title: 'samplemdfile'
+    })
 </script>
 
 # Sample MD File {{ frontmatter.name }}

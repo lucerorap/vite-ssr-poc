@@ -1,11 +1,16 @@
 <script lang="ts" setup>
 import type { RouteRecordRaw } from "vue-router";
 import { inject } from "vue";
+import { Head } from "@vueuse/head";
 
 const pageRoutes = inject<RouteRecordRaw[]>("posts");
 </script>
+
 <template>
   <div class="posts">
+    <Head>
+      <title>Posts</title>
+    </Head>
     <router-link :to="page.path" v-for="page in pageRoutes" class="post">
       <div class="post-name">{{ page.name }}</div>
       <div class="post-detail">

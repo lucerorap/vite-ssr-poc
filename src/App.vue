@@ -5,8 +5,10 @@ import Navbar from "/src/components/Navbar.vue";
 </script>
 
 <template>
-  <navbar />
-  <router-view />
+  <div>
+    <navbar />
+    <router-view />
+  </div>
 </template>
 
 <style lang="scss">

@@ -10,12 +10,14 @@ export default defineConfig({
     Vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    Markdown(),
+    Markdown({
+      headEnabled: true,
+    }),
     Pages({
       pagesDir: "src/pages",
       extensions: ["vue", "md"],
     }),
     WindiCSS(),
-    viteSSR(),
+    SSR(),
   ],
 });

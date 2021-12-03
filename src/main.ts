@@ -4,32 +4,51 @@ import { createRouter, createWebHistory } from "vue-router";
 import routes from "virtual:generated-pages";
 import "virtual:windi.css";
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+import { viteSSR } from "vite-ssr/vue";
+import { createHead } from "@vueuse/head";
 
-let postPages = routes.filter((route) => {
-  return route.path.startsWith("/posts/") ? true : false;
-});
+// const router = createRouter({
+//   history: createWebHistory(),
+//   routes,
+// });
 
-postPages = postPages.map((post) => {
-  const date = post.meta!.date as string;
-  const dateObject = new Date(date);
-  post.meta!.newdate = dateObject;
-  //   console.log("dateobject", dateObject);
-  //   return post;
-  return Object.assign(post, {
-    ___time: dateObject.getTime(),
-  });
-});
+// const app = createApp(App);
 
-postPages.sort((a, b) => {
-  return b.___time - a.___time;
-});
-console.log("postPages", postPages);
+// app.use(router).mount("#app");
 
-const app = createApp(App);
+export default viteSSR(
+  App,
+  {
+    routes,
+  },
+  ({ app, router }) => {
+    const head = createHead();
+    app.use(head);
 
-app.provide("posts", postPages);
-app.use(router).mount("#app");
+    let postPages = routes.filter((route) => {
+      return route.path.startsWith("/posts/") ? true : false;
+    });
+
+    postPages = postPages.map((post) => {
+      const date = post.meta!.date as string;
+      const dateObject = new Date(date);
+      post.meta!.newdate = dateObject;
+      //   console.log("dateobject", dateObject);
+      //   return post;
+      return Object.assign(post, {
+        ___time: dateObject.getTime(),
+      });
+    });
+
+    postPages.sort((a, b) => {
+      return b.___time - a.___time;
+    });
+    console.log("postPages", postPages);
+
+    app.provide("posts", postPages);
+
+    return {
+      head,
+    };
+  }
+);
